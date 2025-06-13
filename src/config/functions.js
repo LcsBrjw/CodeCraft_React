@@ -56,7 +56,7 @@ export const useLatestArticle = () => {
 
 // RECUPERATION DE TOUS LES COMMENTAIRES
 export async function fetchComments(articleId) {
-  const response = await fetch(`${API_URL}/articles/${articleId}/comments`);
+  const response = await fetch(`${API_URL}/article/${articleId}/comments`);
 
   if (!response.ok) {
     throw new Error("Erreur lors de la récupération des commentaires.");
@@ -67,7 +67,7 @@ export async function fetchComments(articleId) {
 
 // ENVOI D'UN NOUVEAU COMMENTAIRE
 export async function addComment(commentData, articleId) {
-  const response = await fetch(`${API_URL}/articles/${articleId}/comments`, {
+  const response = await fetch(`${API_URL}/article/${articleId}/comment`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

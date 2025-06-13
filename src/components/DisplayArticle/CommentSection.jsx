@@ -46,9 +46,9 @@ export const CommentSection = ({ article }) => {
         {!loading && !error && comments.map((comment) => (
           <CommentSingle key={comment.id} comment={comment} />
         ))}
+        <AddComment articleId={article.id} onCommentAdded={handleCommentAdded} />
       </div>
 
-      <AddComment articleId={article.id} onCommentAdded={handleCommentAdded} />
     </div>
   );
 };

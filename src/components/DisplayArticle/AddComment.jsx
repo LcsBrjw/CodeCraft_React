@@ -33,6 +33,7 @@ export const AddComment = ({ articleId, onCommentAdded }) => {
       <h3 className="text-xl font-semibold mb-8 uppercase text-center">Ajouter un commentaire</h3>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <textarea
+          className="h-30"
           placeholder="Votre commentaire"
           value={content}
           onChange={(e) => setContent(e.target.value)}
@@ -42,7 +43,7 @@ export const AddComment = ({ articleId, onCommentAdded }) => {
         {error && <p className="text-red-500">{error}</p>}
         <button
           type="submit"
-          className="bg-[var(--dark)] text-white px-4 py-2 rounded-sm"
+          className="cursor-pointer bg-[var(--dark)] text-white w-40 mx-auto py-2 rounded-sm"
           disabled={loading}
         >
           {loading ? "Envoi..." : "Envoyer"}
