@@ -1,3 +1,4 @@
+
 import { useLatestArticle } from "../../config/functions";
 import { Link } from "react-router";
 

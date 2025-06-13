@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_URL } from "./const";
 
 
 
@@ -52,3 +53,29 @@ export const useLatestArticle = () => {
 
   return { article, loading };
 };
+
+// RECUPERATION DE TOUS LES COMMENTAIRES
+export async function fetchComments(articleId) {
+  const response = await fetch(`${API_URL}/articles/${articleId}/comments`);
+
+  if (!response.ok) {
+    throw new Error("Erreur lors de la récupération des commentaires.");
+  }
+  return response.json();
+}
+
+
+// ENVOI D'UN NOUVEAU COMMENTAIRE
+export async function addComment(commentData, articleId) {
+  const response = await fetch(`${API_URL}/articles/${articleId}/comments`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(commentData),
+  });
+  if (!response.ok) {
+    throw new Error("Erreur lors de l'envoi du commentaire");
+  }
+  return response.json();
+}
