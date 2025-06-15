@@ -107,3 +107,30 @@ export async function registerUser({ username, email, password, password_confirm
 
   return data;
 }
+
+
+// GESTION DE LA CONNEXION
+
+// functions.js
+
+export async function loginUser({ username, password }) {
+  const response = await fetch(`${API_URL}/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ username, password }),
+  });
+
+  const data = await response.json();
+  console.log("Réponse login:", data);
+  localStorage.setItem("token", data.token);
+
+
+
+  if (!response.ok) {
+    throw new Error(data.message || "Erreur lors de la connexion.");
+  }
+
+  return data; // data.token attendu ici
+}

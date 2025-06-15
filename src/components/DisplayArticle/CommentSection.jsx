@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { fetchComments } from "../../config/functions.js";
 import { CommentSingle } from "../DisplayArticle/CommentSingle";
 import { AddComment } from "../DisplayArticle/AddComment";
+import { useAuth } from "../../context/AuthContext";
 
 export const CommentSection = ({ article }) => {
+  const { user } = useAuth(); // récupère l'utilisateur connecté
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -34,7 +36,9 @@ export const CommentSection = ({ article }) => {
   return (
     <div>
       <div className="mt-8 text-black bg-white rounded-sm p-4 shadow-md lg:max-w-[800px] w-full mx-auto">
-        <h3 className="text-xl font-semibold mb-8 uppercase text-center">Commentaires</h3>
+        <h3 className="text-xl font-semibold mb-8 uppercase text-center">
+          Commentaires
+        </h3>
 
         {loading && <p>Chargement des commentaires...</p>}
         {error && <p className="text-red-500">{error}</p>}
@@ -43,12 +47,20 @@ export const CommentSection = ({ article }) => {
           <p>Aucun commentaire pour l'instant.</p>
         )}
 
-        {!loading && !error && comments.map((comment) => (
-          <CommentSingle key={comment.id} comment={comment} />
-        ))}
-        <AddComment articleId={article.id} onCommentAdded={handleCommentAdded} />
-      </div>
+        {!loading &&
+          !error &&
+          comments.map((comment) => (
+            <CommentSingle key={comment.id} comment={comment} />
+          ))}
 
+        {user ? (
+          <AddComment articleId={article.id} onCommentAdded={handleCommentAdded} />
+        ) : (
+          <p className="text-center mt-4 text-gray-600">
+            Vous devez être connecté pour ajouter un commentaire.
+          </p>
+        )}
+      </div>
     </div>
   );
 };
