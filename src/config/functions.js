@@ -9,7 +9,7 @@ import { API_URL } from "./const";
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/api/new-article", {
+      const response = await fetch(`${API_URL}/new-article`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ export const useLatestArticle = () => {
   useEffect(() => {
     const fetchLatestArticle = async () => {
       try {
-        const response = await fetch("http://localhost:8000/api/articles/latest");
+        const response = await fetch(`${API_URL}/articles/latest`);
         const data = await response.json();
         setArticle(data);
       } catch (error) {
@@ -78,4 +78,32 @@ export async function addComment(commentData, articleId) {
     throw new Error("Erreur lors de l'envoi du commentaire");
   }
   return response.json();
+}
+
+
+
+
+// CREATION D'UN NOUVEL UTILISATEUR
+
+export async function registerUser({ username, email, password, password_confirmation }) {
+  const response = await fetch(`${API_URL}/users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username,
+      email,
+      password,
+      password_confirmation,
+    }),
+  });
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Erreur lors de l'inscription.");
+  }
+
+  return data;
 }

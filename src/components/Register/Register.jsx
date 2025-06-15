@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { registerUser } from "../../config/functions";
 
 export function Register({ onClose }) {
   const [formData, setFormData] = useState({
@@ -13,40 +14,29 @@ export function Register({ onClose }) {
     setFormData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  if (formData.password !== formData.password2) {
-    setError("Les mots de passe ne correspondent pas !");
-    return;
-  }
-
-  try {
-    const response = await fetch("http://localhost:3000/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-        body: JSON.stringify({
-        pseudo: formData.pseudo,
-        email: formData.email,
-        password: formData.password,
-        password_confirmation: formData.password2
-        }),
-    });
-
-    const data = await response.json();
-
-    if (!response.ok) {
-      throw new Error(data.message || "Erreur lors de l'inscription.");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.password !== formData.password2) {
+      setError("Les mots de passe ne correspondent pas !");
+      return;
     }
 
-    console.log("Inscription réussie :", data);
-    // Tu peux rediriger, afficher un message de succès ou fermer le formulaire
-    if (onClose) onClose();
-  } catch (err) {
-    setError(err.message);
-  }
-};
+    try {
+      const data = await registerUser({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password,
+        password_confirmation: formData.password2,
+      });
+
+      alert("Inscription réussie !");
+      window.location.href = "/";
+
+      if (onClose) onClose();
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
 
   return (
