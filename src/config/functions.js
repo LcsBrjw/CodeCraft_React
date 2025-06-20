@@ -111,7 +111,6 @@ export async function registerUser({ username, email, password, password_confirm
 
 // GESTION DE LA CONNEXION
 
-// functions.js
 
 export async function loginUser({ username, password }) {
   const response = await fetch(`${API_URL}/login`, {
@@ -133,4 +132,50 @@ export async function loginUser({ username, password }) {
   }
 
   return data; // data.token attendu ici
+}
+
+
+// RECUPERATION DES DERNIERS ARTICLES
+
+export async function fetchArticles(limit = 8) {
+  try {
+    const response = await fetch(`${API_URL}/articles?limit=${limit}`);
+    if (!response.ok) {
+      throw new Error('Erreur lors du chargement des articles');
+    }
+    const data = await response.json();
+    return data.articles;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+
+// RECUPERATION DES MEILLEURS CONTRIBUTEURS ET DES TAGS LES PLUS POPULAIRES
+
+// Récupérer les 5 meilleurs contributeurs
+export async function fetchTopContributors() {
+  try {
+    const response = await fetch(`${API_URL}/top-contributors`);
+    if (!response.ok) throw new Error("Erreur lors de la récupération des contributeurs");
+    const data = await response.json();
+    return data.contributors;
+  } catch (error) {
+    console.error("Erreur fetchTopContributors:", error);
+    return [];
+  }
+}
+
+// Récupérer les 5 tags les plus populaires
+export async function fetchPopularTags() {
+  try {
+    const response = await fetch(`${API_URL}/popular-tags`);
+    if (!response.ok) throw new Error("Erreur lors de la récupération des tags");
+    const data = await response.json();
+    return data.tags;
+  } catch (error) {
+    console.error("Erreur fetchPopularTags:", error);
+    return [];
+  }
 }

@@ -14,7 +14,7 @@ export function Carrousel() {
   ));
 
   return (
-    <div className="bg-[var(--light)] fixed top-[70px] h-[60px] w-full overflow-hidden z-49 group">
+    <div className="bg-[var(--light)] fixed top-[70px] h-[60px] w-full overflow-hidden z-49 group shadow-md">
       <div className="flex animate-marquee gap-4 w-max ">
         {tags}
       </div>

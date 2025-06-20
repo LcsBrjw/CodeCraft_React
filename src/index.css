@@ -47,3 +47,7 @@ body{
   background-clip: text;
   color: transparent;
 }
+
+.bold-marker li::marker {
+  font-weight: bold;
+}
