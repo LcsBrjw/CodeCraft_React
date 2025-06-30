@@ -20,16 +20,19 @@ npm install
 ou
 bun i
 
-3. **Lancer le serveur de développement **
+3. **Lancer le serveur de développement**
 
 npm run dev
 ou
 bun dev
 
-
+## Infos complémentaires
 Ce projet est lié à un projet d'administration back-end Laravel Code-Craft_API disponible ici :
 https://github.com/LcsBrjw/Code-Craft_API
 
-** Auteur **
+
+
+
+### Auteur
 S. Feillault
 sylvain.feillault@gmail.com
